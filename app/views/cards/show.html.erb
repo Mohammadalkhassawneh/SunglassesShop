@@ -1,0 +1,14 @@
+<h1>Cards#show</h1>
+<p>Find me in app/views/cards/show.html.erb</p>
+<%  @order_items.each do |item| %>
+    <h3><%= item.lense.colour %></h3>
+    <h3><%= item.lense.description %></h3>
+
+    <%= form_for item, remote: true do |f| %>
+        <%= f.hidden_field :product_id, :value => item.lense.id %>
+        <%= f.number_field :quanity, :value => item.quantity.to_i %>
+        <%= f.submit 'Update Card' %>
+    <% end %>
+    <h2>subtotal: <%= item.total %></h2>
+<% end %>
+<%= @order_items.map{|d| d.id} %>

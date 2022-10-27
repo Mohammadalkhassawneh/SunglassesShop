@@ -1,0 +1,45 @@
+<div class="container">
+  <h1 class="text-center">Frames</h1>
+  <div class="text-center">
+    <div class="row">
+      <% @frames.each do |frame| %>
+        <div class="col mt-3">
+          <div class="card pt-2 border border-dark bg-light" style="width: 18rem;">
+            <%= gravatar_for @frame, size: 80, class: 'card-img' %>
+            <div class="card-body">
+              <h4 class="card-title"><%= frame.name %></h4>
+              <p class="card-text"><%= frame.description %>.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Status: </strong><%= frame.status %></li>
+            </ul>
+            <div class="card-body">
+              <span href="#" class="card-link"><strong>Stock: </strong><%= frame.stock %></span>
+              <span href="#" class="card-link"><strong>Price: </strong><%= [frame.price, frame.currency].join(' ') %></span>
+            </div>
+            <div class="card-body">
+              <%= form_for @order_item, remote: true do |f| %>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <%= f.hidden_field :product_id, :value => frame.id %>
+                <%= f.number_field :quantity, :value => 1, :min => 1, class: 'form-control' %>
+                <%= f.submit 'Add', class: 'mt-2' %>
+              <% end %>
+            </div>
+            <% if current_user&.admin %>
+              <div class="card-body">
+                <%= link_to 'Show', frame, class: 'btn btn-sm btn-outline-primary text-primary' %>
+                <%= link_to 'Edit', edit_frame_path(frame), class: 'btn btn-sm btn-outline-warning text-warning' %>
+                <%= button_to 'Destroy', frame, method: :delete, class: 'btn btn-sm btn-outline-danger mt-2' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% if current_user&.admin %>
+      <%= link_to 'Create New Frame', new_frame_path, class: 'btn btn-primary btn-lg btn-block text-white mt-3' %>
+    <% end %>
+  </div>
+</div>
+
+

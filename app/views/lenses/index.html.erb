@@ -1,0 +1,48 @@
+<div class="container">
+  <h1 class="text-center">Lenses</h1>
+  <%= will_paginate @lenses , class: 'flickr_pagination'%>
+  <%= render 'layouts/notice' %>
+  <div class="text-center">
+    <div class="row">
+      <% @lenses.each do |lense| %>
+        <div class="col mt-3">
+          <div class="card pt-2 border border-dark bg-light" style="width: 18rem;">
+            <%= gravatar_for @lense, size: 80, class: 'card-img' %>
+            <div class="card-body">
+              <h4 class="card-title"><%= lense.colour %></h4>
+              <p class="card-text"><%= lense.description %>.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Type: </strong><%= lense.prescription_type %></li>
+              <li class="list-group-item"><strong>Lense type: </strong><%= lense.lens_type %></li>
+            </ul>
+            <div class="card-body">
+              <span href="#" class="card-link"><strong>Stock: </strong><%= lense.stock %></span>
+              <span href="#" class="card-link"><strong>Price: </strong><%= [lense.price, lense.currency].join(' ') %></span>
+            </div>
+            <div class="card-body">
+              <%= form_for @order_item, remote: true do |f| %>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <%= f.hidden_field :product_id, :value => lense.id %>
+                <%= f.number_field :quantity, :value => 1, :min => 1, class: 'form-control' %>
+                <%= f.submit 'Add', class: 'mt-3 btn btn-sm btn-dark' %>
+              <% end %>
+            </div>
+            <% if current_user&.admin %>
+              <div class="card-body">
+                <%= link_to 'Show', lense, class: 'btn btn-sm btn-outline-primary text-primary' %>
+                <%= link_to 'Edit', edit_lense_path(lense), class: 'btn btn-sm btn-outline-warning text-warning' %>
+                <%= button_to 'Destroy', lense, method: :delete, class: 'btn btn-sm btn-outline-danger mt-2' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% if current_user&.admin %>
+      <%= link_to 'Create New Lense', new_lense_path, class: 'btn btn-primary btn-lg btn-block text-white mt-3' %>
+    <% end %>
+  </div>
+</div>
+
+

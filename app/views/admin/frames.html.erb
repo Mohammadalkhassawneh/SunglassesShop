@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>frame ID</th>
+            <th>name</th>
+            <th>Description</th>
+            <th>status</th>
+            <th>stock</th>
+            <th>price</th>
+            <th>currency</th>
+            <th>user id</th>
+            <th>Created at</th>
+            <th colspan="3" class="text-center">Actions</th>
+        <tr>
+    </thead>
+    <tbody>
+        <% @frames.each_with_index do |frame, i| %>
+            <tr>
+                <th><%= i + 1 %></th>
+                <th><%= frame.id %></th>
+                <td><%= frame.name %></td>
+                <td><%= frame.description %></td>
+                <td><%= frame.status %></td>
+                <td><%= frame.stock %></td>
+                <td><%= frame.price %></td>
+                <td><%= frame.currency %></td>
+                <td><%= frame.user_id %></td>
+                <td><%= frame.created_at %></td>
+                <td><%= link_to 'Show', frame, class: 'btn btn-sm btn-outline-primary text-primary' %></td>
+                <td><%= link_to 'Edit', edit_frame_path(frame), class: 'btn btn-sm btn-outline-dark text-dark' %></td>
+                <td><%= button_to 'Destroy', frame, method: :delete, class: 'btn btn-sm btn-outline-danger' %></td>
+            </tr>
+        <% end %>
+    <tbody>
+</table>
+  <%= link_to 'Create New Frame', new_frame_path, class: 'btn btn-primary btn-lg btn-block text-white mt-3' %>

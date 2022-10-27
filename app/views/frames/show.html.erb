@@ -1,0 +1,30 @@
+<div class="container text-center">
+  <%= render 'layouts/notice' %>
+  <div class="row">
+      <div class="col mt-3">
+        <div class="card pt-2">
+          <%= gravatar_for @frame, size: 280, class: 'card-img' %>
+          <div class="card-body">
+            <h1 class="card-title"><%= @frame.name %></h1>
+            <p class="card-text lg"  style="font-size: 24px"><%= @frame.description %>.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>status: </strong><%= @frame.status %></li>
+          </ul>
+          <div class="card-body">
+            <span href="#" class="card-link"><strong>Stock: </strong><%= @frame.stock %></span>
+            <span href="#" class="card-link"><strong>Price: </strong><%= [@frame.price, @frame.currency].join(' ') %></span>
+          </div>
+          <div class="card-body">
+            <%= link_to 'Edit', edit_frame_path(@frame), class: 'btn btn-lg btn-outline-warning text-warning' %>
+            <%= link_to 'Back', frames_path, class: 'btn btn-lg btn-outline-success text-success' %>
+          </div>
+          <% if current_user&.admin %>
+            <div class="card-footer text-muted">
+              <small><%= "created by #{@frame.user.username }, #{time_ago_in_words(@frame.created_at)} ago" %></small>
+            </div>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>

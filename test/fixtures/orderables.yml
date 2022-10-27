@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lense: one
+  frames: one
+  cart_belongs_to: MyString
+  quantity: 1
+
+two:
+  lense: two
+  frames: two
+  cart_belongs_to: MyString
+  quantity: 1
